@@ -65,6 +65,7 @@ def download_hubble_collection_images(collection_name):
 
 
 def format_images():
+    ensure_dir("./formated_images")
     for image in os.listdir("./images"):
         image_to_edit = Image.open("./images/{}".format(image))
         if image_to_edit.height > image_to_edit.width:
