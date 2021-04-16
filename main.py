@@ -8,6 +8,7 @@ from PIL import Image
 
 load_dotenv()
 
+
 def ensure_dir(dir_name):
     if not os.path.exists(dir_name):
         os.mkdir(dir_name)
@@ -98,7 +99,11 @@ def main():
     bot = Bot()
     bot.login(username=instagram_username, password=instagram_password)
 
-    bot.upload_photo("./formated_images/4533.jpg", caption="Test upload 2. Let's try this again.")
+    bot.upload_photo(
+        "./formated_images/4533.jpg",
+        caption="Test upload 2. Let's try this again.",
+    )
+
 
 if __name__ == '__main__':
     main()
