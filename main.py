@@ -9,7 +9,7 @@ def ensure_dir(dir_name):
         os.mkdir(dir_name)
 
 
-def picture_download(url, picture_name):
+def download_picture(url, picture_name):
     filename = "./images/{}".format(picture_name)
 
     response = requests.get(url)
@@ -25,21 +25,22 @@ def fetch_spacex_last_launch():
     decoded_response = response.json()
     spacex_pictures_links = decoded_response["links"]["flickr"]["original"]
     for counter, picture in enumerate(spacex_pictures_links):
-        picture_download(
+        download_picture(
             picture,
             "spacex{}.jpg".format(counter+1),
         )
 
 
-def file_ext(url):
+def parse_file_ext(url):
     unquoted_link = unquote(url)
     link = urlsplit(unquoted_link)
     return os.path.splitext(link.path)[1]
 
+
 def main():
     ensure_dir("./images/")
 
-    picture_download(
+    download_picture(
         "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg",
         "hubble.jpeg",
                      )
@@ -50,7 +51,7 @@ def main():
     decoded_response = response.json()
     for file in decoded_response["image_files"]:
         link = file["file_url"]
-        print(file_ext(link))
+        print(parse_file_ext(link))
 
 
 if __name__ == '__main__':
