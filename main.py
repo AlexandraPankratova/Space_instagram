@@ -1,5 +1,7 @@
-import requests
 import os
+from urllib.parse import urlsplit, unquote
+
+import requests
 
 
 def ensure_dir(dir_name):
@@ -29,13 +31,26 @@ def fetch_spacex_last_launch():
         )
 
 
+def file_ext(url):
+    unquoted_link = unquote(url)
+    link = urlsplit(unquoted_link)
+    return os.path.splitext(link.path)[1]
+
 def main():
     ensure_dir("./images/")
+
     picture_download(
         "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg",
         "hubble.jpeg",
                      )
+
     fetch_spacex_last_launch()
+
+    response = requests.get("https://hubblesite.org/api/v3/image/1")
+    decoded_response = response.json()
+    for file in decoded_response["image_files"]:
+        link = file["file_url"]
+        print(file_ext(link))
 
 
 if __name__ == '__main__':
