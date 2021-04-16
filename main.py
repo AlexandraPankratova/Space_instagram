@@ -4,8 +4,6 @@ from dotenv import load_dotenv
 from instabot import Bot
 from PIL import Image
 
-from fetch_hubble import fetch_hubble_collection_images, fetch_hubble_images
-from fetch_spacex import fetch_spacex_last_launch
 
 load_dotenv()
 
@@ -41,14 +39,6 @@ def upload_to_instagram(username, password):
 
 
 def main():
-    ensure_dir("./images/")
-
-    fetch_spacex_last_launch()
-
-    fetch_hubble_images(1)
-
-    fetch_hubble_collection_images("spacecraft")
-
     format_images()
 
     instagram_username = os.getenv("INSTAGRAM_USERNAME")
