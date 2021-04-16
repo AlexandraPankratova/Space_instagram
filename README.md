@@ -30,7 +30,15 @@ INSTAGRAM_USERNAME=your_instagram_username
 INSTAGRAM_PASSWORD=your_instagram_password
 ```
 ### How to run
-To run this project use this command in terminal:
+1. You need to download images from `SpaceX`:
+```bash
+python3 fetch_spacex.py
+```
+2. Then you need to download images and collection from `Hubble`:
+```bash
+python3 fetch_hubble.py
+```
+3. Finally you need to format images and upload them to your instagram account:
 ```bash
 python3 main.py
 ```
