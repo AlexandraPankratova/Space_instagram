@@ -106,7 +106,7 @@ def main():
     format_images()
 
     instagram_username = os.getenv("INSTAGRAM_USERNAME")
-    instagram_password = os.getenv("PASSWORD")
+    instagram_password = os.getenv("INSTAGRAM_PASSWORD")
     upload_to_instagram(instagram_username, instagram_password)
 
 
