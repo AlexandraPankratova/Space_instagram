@@ -1,5 +1,5 @@
 import os
-from urllib.parse import urlsplit, unquote
+from urllib.parse import unquote, urlsplit
 
 import requests
 
@@ -51,6 +51,15 @@ def download_hubble_images(image_id):
                    )
 
 
+def download_hubble_collection_images(collection_name):
+    response = requests.get(
+        "http://hubblesite.org/api/v3/images/"+collection_name)
+    decoded_response = response.json()
+    for image in decoded_response:
+        print(image["id"])
+        download_hubble_images(image["id"])
+
+
 def main():
     ensure_dir("./images/")
 
@@ -63,15 +72,7 @@ def main():
 
     download_hubble_images(1)
 
-    collection_name = "spacecraft"
-
-    url = "http://hubblesite.org/api/v3/images/"
-
-    response = requests.get(url+collection_name)
-    decoded_response = response.json()
-    for image in decoded_response:
-        print(image["id"])
-        download_hubble_images(image["id"])
+    download_hubble_collection_images("spacecraft")
 
 
 if __name__ == '__main__':
