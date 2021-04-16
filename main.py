@@ -63,6 +63,16 @@ def main():
 
     download_hubble_images(1)
 
+    collection_name = "spacecraft"
+
+    url = "http://hubblesite.org/api/v3/images/"
+
+    response = requests.get(url+collection_name)
+    decoded_response = response.json()
+    for image in decoded_response:
+        print(image["id"])
+        download_hubble_images(image["id"])
+
 
 if __name__ == '__main__':
     main()
