@@ -1,9 +1,12 @@
 import os
 from urllib.parse import unquote, urlsplit
-from PIL import Image
 
 import requests
+from dotenv import load_dotenv
+from instabot import Bot
+from PIL import Image
 
+load_dotenv()
 
 def ensure_dir(dir_name):
     if not os.path.exists(dir_name):
@@ -63,10 +66,12 @@ def download_hubble_collection_images(collection_name):
 def format_images():
     for image in os.listdir("./images"):
         image_to_edit = Image.open("./images/{}".format(image))
-        if image_to_edit.height > 1080:
-            image_to_edit.thumbnail((1080, image_to_edit.width))
-        elif image_to_edit.width > 1080:
-            image_to_edit.thumbnail((image_to_edit.height, 1080))
+        if image_to_edit.height > image_to_edit.width:
+            if image_to_edit.height > 1080:
+                image_to_edit.thumbnail((image_to_edit.width, 1080))
+        else:
+            if image_to_edit.width > 1080:
+                image_to_edit.thumbnail((1080, image_to_edit.height))
         new_image_name = "./formated_images/{}.jpg".format(
             os.path.splitext(image)[0])
         image_to_edit.convert('RGB').save(new_image_name, format="JPEG")
@@ -75,19 +80,25 @@ def format_images():
 def main():
     ensure_dir("./images/")
 
-    download_image(
-        "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg",
-        "hubble.jpeg",
-                     )
+    # download_image(
+    #     "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg",
+    #     "hubble.jpeg",
+    #                  )
 
-    fetch_spacex_last_launch()
+    # fetch_spacex_last_launch()
 
-    download_hubble_images(1)
+    # download_hubble_images(1)
 
-    download_hubble_collection_images("spacecraft")
+    # download_hubble_collection_images("spacecraft")
 
-    format_images()
+    # format_images()
 
+    instagram_username = os.getenv("INSTAGRAM_USERNAME")
+    instagram_password = os.getenv("PASSWORD")
+    bot = Bot()
+    bot.login(username=instagram_username, password=instagram_password)
+
+    bot.upload_photo("./formated_images/4533.jpg", caption="Test upload 2. Let's try this again.")
 
 if __name__ == '__main__':
     main()
