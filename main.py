@@ -24,6 +24,11 @@ def main():
         "hubble.jpeg",
                      )
 
+    response = requests.get("https://api.spacexdata.com/v4/launches/latest")
+    response.raise_for_status()
+    decoded_response = response.json()
+    print(decoded_response["links"]["flickr"]["original"])
+
 
 if __name__ == '__main__':
     main()
