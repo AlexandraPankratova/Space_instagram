@@ -78,31 +78,35 @@ def format_images():
         image_to_edit.convert('RGB').save(new_image_name, format="JPEG")
 
 
+def upload_to_instagram(username, password):
+    bot = Bot()
+    bot.login(username=username, password=password)
+    for counter, image in enumerate(os.listdir("./formated_images")):
+        bot.upload_photo(
+            "./formated_images/{}".format(image),
+            caption="Test upload {}. Let's try this again.".format(counter+1),
+        )
+
+
 def main():
     ensure_dir("./images/")
 
-    # download_image(
-    #     "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg",
-    #     "hubble.jpeg",
-    #                  )
+    download_image(
+        "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg",
+        "hubble.jpeg",
+                     )
 
-    # fetch_spacex_last_launch()
+    fetch_spacex_last_launch()
 
-    # download_hubble_images(1)
+    download_hubble_images(1)
 
-    # download_hubble_collection_images("spacecraft")
+    download_hubble_collection_images("spacecraft")
 
-    # format_images()
+    format_images()
 
     instagram_username = os.getenv("INSTAGRAM_USERNAME")
     instagram_password = os.getenv("PASSWORD")
-    bot = Bot()
-    bot.login(username=instagram_username, password=instagram_password)
-
-    bot.upload_photo(
-        "./formated_images/4533.jpg",
-        caption="Test upload 2. Let's try this again.",
-    )
+    upload_to_instagram(instagram_username, instagram_password)
 
 
 if __name__ == '__main__':
