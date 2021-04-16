@@ -10,3 +10,7 @@ venv/
 
 # Configs from instabot
 config/
+
+# Downloaded pictures
+images/
+formated_images/
