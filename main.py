@@ -1,5 +1,6 @@
 import os
 from urllib.parse import unquote, urlsplit
+from PIL import Image
 
 import requests
 
@@ -56,23 +57,34 @@ def download_hubble_collection_images(collection_name):
         "http://hubblesite.org/api/v3/images/"+collection_name)
     decoded_response = response.json()
     for image in decoded_response:
-        print(image["id"])
         download_hubble_images(image["id"])
 
 
 def main():
     ensure_dir("./images/")
 
-    download_image(
-        "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg",
-        "hubble.jpeg",
-                     )
+    # download_image(
+    #     "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg",
+    #     "hubble.jpeg",
+    #                  )
 
-    fetch_spacex_last_launch()
+    # fetch_spacex_last_launch()
 
-    download_hubble_images(1)
+    # download_hubble_images(1)
 
-    download_hubble_collection_images("spacecraft")
+    # download_hubble_collection_images("spacecraft")
+
+    for image in os.listdir("./images"):
+        path_to_image = "./images/{}".format(image)
+        image_to_edit = Image.open(path_to_image)
+        if image_to_edit.height > 1080:
+            image_to_edit.thumbnail((1080, image_to_edit.width))
+        elif image_to_edit.width > 1080:
+            image_to_edit.thumbnail((image_to_edit.height, 1080))
+        parsed_image_name = os.path.splitext(image)
+        new_image_name = "./formated_images/{}.jpg".format(parsed_image_name[0])
+        rgb_image = image_to_edit.convert('RGB')
+        rgb_image.save(new_image_name, format="JPEG")
 
 
 if __name__ == '__main__':
