@@ -4,6 +4,11 @@ from urllib.parse import unquote, urlsplit
 import requests
 
 
+def ensure_dir(dir_name):
+    if not os.path.exists(dir_name):
+        os.mkdir(dir_name)
+
+
 def parse_file_ext(url):
     unquoted_link = unquote(url)
     link = urlsplit(unquoted_link)
@@ -40,3 +45,13 @@ def fetch_hubble_collection_images(collection_name):
     decoded_response = response.json()
     for image in decoded_response:
         fetch_hubble_images(image["id"])
+
+
+def main():
+    ensure_dir("./images")
+    fetch_hubble_images(1)
+    fetch_hubble_collection_images("spacecraft")
+
+
+if __name__ == '__main__':
+    main()
