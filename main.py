@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from instabot import Bot
 from PIL import Image
 
-
 load_dotenv()
 
 
