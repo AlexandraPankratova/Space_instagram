@@ -7,11 +7,11 @@ def fetch_spacex_last_launch():
     response = requests.get("https://api.spacexdata.com/v4/launches/latest")
     response.raise_for_status()
     decoded_response = response.json()
-    spacex_images_links = decoded_response["links"]["flickr"]["original"]
-    for counter, image in enumerate(spacex_images_links, start=1):
+    spacex_images_urls = decoded_response["links"]["flickr"]["original"]
+    for counter, image_url in enumerate(spacex_images_urls, start=1):
         download_image(
-            image,
-            "spacex{}{}".format(counter, parse_file_ext(image)),
+            image_url,
+            "spacex{}{}".format(counter, parse_file_ext(image_url)),
         )
 
 
