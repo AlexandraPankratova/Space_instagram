@@ -28,6 +28,8 @@ pip install -r requirements.txt
 ```
 INSTAGRAM_USERNAME=your_instagram_username
 INSTAGRAM_PASSWORD=your_instagram_password
+DIRECTORY_FOR_IMAGES=./images/
+DIRECTORY_FOR_FORMATED_IMAGES=./formated_images
 ```
 ### How to run
 1. You need to download images from `SpaceX`:
