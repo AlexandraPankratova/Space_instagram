@@ -10,15 +10,15 @@ And upload them to your instagram account.
 ### How to install
 
 1. Download code.
-2. Create virtual environment using `venv`:
+2. Python3 should be already installed.
+3. Create virtual environment using `venv`:
 ```bash
 python3 -m venv your_virtual_env_name
 ```
-3. Activate virtual environment:
+4. Activate virtual environment:
 ```bash
 source your_virtual_env_name/bin/activate
 ```
-4. Python3 should be already installed. 
 
 5. Then use `pip` (or `pip3`, if there is a conflict with Python2) to install dependencies:
 ```bash
