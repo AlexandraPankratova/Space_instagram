@@ -9,8 +9,7 @@ images_directory = os.getenv("DIRECTORY_FOR_IMAGES")
 
 
 def ensure_dir(dir_name):
-    if not os.path.exists(dir_name):
-        os.mkdir(dir_name)
+    os.makedirs(dir_name, exist_ok=True)
 
 
 def parse_file_ext(url):
