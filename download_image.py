@@ -2,10 +2,6 @@ import os
 from urllib.parse import unquote, urlsplit
 
 import requests
-from dotenv import load_dotenv
-
-load_dotenv()
-images_directory = os.getenv("DIRECTORY_FOR_IMAGES")
 
 
 def ensure_dir(dir_name):
@@ -18,7 +14,7 @@ def parse_file_ext(url):
     return os.path.splitext(parsed_url.path)[1]
 
 
-def download_image(url, image_name):
+def download_image(url, image_name, images_directory):
     file_name = "{}{}".format(images_directory, image_name)
 
     response = requests.get(url, verify=False)
