@@ -14,9 +14,7 @@ def ensure_dir(dir_name):
         os.mkdir(dir_name)
 
 
-def format_images():
-    ensure_dir("{}".format(formated_images_directory))
-    max_image_dimension = 1080
+def format_images(max_image_dimension):
     for image_name in os.listdir("{}".format(images_directory)):
         image_to_edit = Image.open("{}{}".format(images_directory, image_name))
         if image_to_edit.height > max_image_dimension \
@@ -41,7 +39,9 @@ def upload_to_instagram(username, password):
 
 
 def main():
-    format_images()
+    max_image_dimension = 1080
+    ensure_dir("{}".format(formated_images_directory))
+    format_images(max_image_dimension)
 
     instagram_username = os.getenv("INSTAGRAM_USERNAME")
     instagram_password = os.getenv("INSTAGRAM_PASSWORD")
