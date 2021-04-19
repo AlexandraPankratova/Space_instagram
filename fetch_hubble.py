@@ -1,6 +1,12 @@
+import os
+
 import requests
+from dotenv import load_dotenv
 
 from download_image import download_image, ensure_dir, parse_file_ext
+
+load_dotenv()
+images_directory = os.getenv("DIRECTORY_FOR_IMAGES")
 
 
 def fetch_hubble_image(image_id):
@@ -10,7 +16,7 @@ def fetch_hubble_image(image_id):
     )
     response.raise_for_status()
     decoded_response = response.json()
-    image_url= decoded_response["image_files"][-1]["file_url"]
+    image_url = decoded_response["image_files"][-1]["file_url"]
     image_extension = parse_file_ext(image_url)
     download_image("https:{}".format(image_url),
                    "{}{}".format(image_id, image_extension),
@@ -26,7 +32,7 @@ def fetch_hubble_collection_images(collection_name):
 
 
 def main():
-    ensure_dir("./images")
+    ensure_dir("{}".format(images_directory))
     fetch_hubble_image(1)
     fetch_hubble_collection_images("spacecraft")
 

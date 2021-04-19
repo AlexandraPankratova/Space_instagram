@@ -5,6 +5,8 @@ from instabot import Bot
 from PIL import Image
 
 load_dotenv()
+images_directory = os.getenv("DIRECTORY_FOR_IMAGES")
+formated_images_directory = os.getenv("DIRECTORY_FOR_FORMATED_IMAGES")
 
 
 def ensure_dir(dir_name):
@@ -13,14 +15,15 @@ def ensure_dir(dir_name):
 
 
 def format_images():
-    ensure_dir("./formated_images")
+    ensure_dir("{}".format(formated_images_directory))
     max_image_dimension = 1080
-    for image_name in os.listdir("./images"):
-        image_to_edit = Image.open("./images/{}".format(image_name))
+    for image_name in os.listdir("{}".format(images_directory)):
+        image_to_edit = Image.open("{}{}".format(images_directory, image_name))
         if image_to_edit.height > max_image_dimension \
                 or image_to_edit.width > max_image_dimension:
             image_to_edit.thumbnail((max_image_dimension, max_image_dimension))
-        new_image_path = "./formated_images/{}.jpg".format(
+        new_image_path = "{}/{}.jpg".format(
+            formated_images_directory,
             os.path.splitext(image_name)[0])
         image_to_edit.convert('RGB').save(new_image_path, format="JPEG")
 
@@ -28,9 +31,11 @@ def format_images():
 def upload_to_instagram(username, password):
     bot = Bot()
     bot.login(username=username, password=password)
-    for counter, image in enumerate(os.listdir("./formated_images"), start=1):
+    for counter, image in enumerate(
+            os.listdir("{}".format(formated_images_directory)),
+            start=1):
         bot.upload_photo(
-            "./formated_images/{}".format(image),
+            "{}/{}".format(formated_images_directory, image),
             caption="Test upload {}. Let's try this again.".format(counter),
         )
 

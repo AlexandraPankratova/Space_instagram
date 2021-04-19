@@ -1,6 +1,12 @@
+import os
+
 import requests
+from dotenv import load_dotenv
 
 from download_image import download_image, ensure_dir, parse_file_ext
+
+load_dotenv()
+images_directory = os.getenv("DIRECTORY_FOR_IMAGES")
 
 
 def fetch_spacex_last_launch():
@@ -16,7 +22,7 @@ def fetch_spacex_last_launch():
 
 
 def main():
-    ensure_dir("./images/")
+    ensure_dir("{}".format(images_directory))
 
     fetch_spacex_last_launch()
 
