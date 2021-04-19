@@ -30,10 +30,10 @@ def format_images():
 def upload_to_instagram(username, password):
     bot = Bot()
     bot.login(username=username, password=password)
-    for counter, image in enumerate(os.listdir("./formated_images")):
+    for counter, image in enumerate(os.listdir("./formated_images"), start=1):
         bot.upload_photo(
             "./formated_images/{}".format(image),
-            caption="Test upload {}. Let's try this again.".format(counter+1),
+            caption="Test upload {}. Let's try this again.".format(counter),
         )
 
 

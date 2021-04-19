@@ -8,10 +8,10 @@ def fetch_spacex_last_launch():
     response.raise_for_status()
     decoded_response = response.json()
     spacex_images_links = decoded_response["links"]["flickr"]["original"]
-    for counter, image in enumerate(spacex_images_links):
+    for counter, image in enumerate(spacex_images_links, start=1):
         download_image(
             image,
-            "spacex{}{}".format(counter+1, parse_file_ext(image)),
+            "spacex{}{}".format(counter, parse_file_ext(image)),
         )
 
 
