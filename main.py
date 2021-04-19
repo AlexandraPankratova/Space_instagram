@@ -17,12 +17,9 @@ def format_images():
     max_image_dimension = 1080
     for image_name in os.listdir("./images"):
         image_to_edit = Image.open("./images/{}".format(image_name))
-        if image_to_edit.height > image_to_edit.width:
-            if image_to_edit.height > max_image_dimension:
-                image_to_edit.thumbnail((image_to_edit.width, max_image_dimension))
-        else:
-            if image_to_edit.width > max_image_dimension:
-                image_to_edit.thumbnail((max_image_dimension, image_to_edit.height))
+        if image_to_edit.height > max_image_dimension \
+                or image_to_edit.width > max_image_dimension:
+            image_to_edit.thumbnail((max_image_dimension, max_image_dimension))
         new_image_path = "./formated_images/{}.jpg".format(
             os.path.splitext(image_name)[0])
         image_to_edit.convert('RGB').save(new_image_path, format="JPEG")
