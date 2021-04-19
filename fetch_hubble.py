@@ -25,7 +25,7 @@ def download_image(url, image_name):
         file.write(response.content)
 
 
-def fetch_hubble_images(image_id):
+def fetch_hubble_image(image_id):
     response = requests.get(
         "https://hubblesite.org/api/v3/image/{}".format(image_id),
         verify=False,
@@ -44,12 +44,12 @@ def fetch_hubble_collection_images(collection_name):
         "http://hubblesite.org/api/v3/images/"+collection_name)
     decoded_response = response.json()
     for image in decoded_response:
-        fetch_hubble_images(image["id"])
+        fetch_hubble_image(image["id"])
 
 
 def main():
     ensure_dir("./images")
-    fetch_hubble_images(1)
+    fetch_hubble_image(1)
     fetch_hubble_collection_images("spacecraft")
 
 
