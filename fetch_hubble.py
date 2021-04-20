@@ -33,7 +33,7 @@ def main():
     load_dotenv()
     images_directory = os.getenv("DIRECTORY_FOR_IMAGES")
 
-    ensure_dir("{}".format(images_directory))
+    ensure_dir(images_directory)
 
     fetch_hubble_image(1, images_directory)
     fetch_hubble_collection_images("spacecraft", images_directory)

@@ -12,7 +12,7 @@ def format_images(
         images_directory,
         formated_images_directory,
 ):
-    for image_name in os.listdir("{}".format(images_directory)):
+    for image_name in os.listdir(images_directory):
         image_to_edit = Image.open("{}{}".format(images_directory, image_name))
         if image_to_edit.height > max_image_dimension \
                 or image_to_edit.width > max_image_dimension:
@@ -27,7 +27,7 @@ def upload_to_instagram(username, password, directory):
     bot = Bot()
     bot.login(username=username, password=password)
     for counter, image in enumerate(
-            os.listdir("{}".format(directory)),
+            os.listdir(directory),
             start=1):
         bot.upload_photo(
             "{}/{}".format(directory, image),
@@ -42,7 +42,7 @@ def main():
     formated_images_directory = os.getenv("DIRECTORY_FOR_FORMATED_IMAGES")
     max_image_dimension = 1080
 
-    ensure_dir("{}".format(formated_images_directory))
+    ensure_dir(formated_images_directory)
 
     format_images(
         max_image_dimension,

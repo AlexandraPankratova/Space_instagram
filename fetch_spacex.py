@@ -24,7 +24,7 @@ def main():
 
     images_directory = os.getenv("DIRECTORY_FOR_IMAGES")
 
-    ensure_dir("{}".format(images_directory))
+    ensure_dir(images_directory)
 
     fetch_spacex_last_launch(images_directory)
 
