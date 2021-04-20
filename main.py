@@ -4,10 +4,7 @@ from dotenv import load_dotenv
 from instabot import Bot
 from PIL import Image
 
-
-def ensure_dir(dir_name):
-    if not os.path.exists(dir_name):
-        os.mkdir(dir_name)
+from download_image import ensure_dir
 
 
 def format_images(
