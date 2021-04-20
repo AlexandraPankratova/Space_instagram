@@ -10,7 +10,7 @@ from download_image import ensure_dir
 def format_images(
         max_image_dimension,
         images_directory,
-        formated_images_directory,
+        formatted_images_directory,
 ):
     for image_name in os.listdir(images_directory):
         image_to_edit = Image.open("{}{}".format(images_directory, image_name))
@@ -18,7 +18,7 @@ def format_images(
                 or image_to_edit.width > max_image_dimension:
             image_to_edit.thumbnail((max_image_dimension, max_image_dimension))
         new_image_path = "{}/{}.jpg".format(
-            formated_images_directory,
+            formatted_images_directory,
             os.path.splitext(image_name)[0])
         image_to_edit.convert("RGB").save(new_image_path, format="JPEG")
 
@@ -39,15 +39,15 @@ def main():
     load_dotenv()
 
     images_directory = os.getenv("DIRECTORY_FOR_IMAGES")
-    formated_images_directory = os.getenv("DIRECTORY_FOR_FORMATED_IMAGES")
+    formatted_images_directory = os.getenv("DIRECTORY_FOR_FORMATTED_IMAGES")
     max_image_dimension = 1080
 
-    ensure_dir(formated_images_directory)
+    ensure_dir(formatted_images_directory)
 
     format_images(
         max_image_dimension,
         images_directory,
-        formated_images_directory,
+        formatted_images_directory,
     )
 
     instagram_username = os.getenv("INSTAGRAM_USERNAME")
@@ -55,7 +55,7 @@ def main():
     upload_to_instagram(
         instagram_username,
         instagram_password,
-        formated_images_directory,
+        formatted_images_directory,
     )
 
 
