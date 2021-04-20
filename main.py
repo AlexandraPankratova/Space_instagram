@@ -20,7 +20,7 @@ def format_images(
         new_image_path = "{}/{}.jpg".format(
             formated_images_directory,
             os.path.splitext(image_name)[0])
-        image_to_edit.convert('RGB').save(new_image_path, format="JPEG")
+        image_to_edit.convert("RGB").save(new_image_path, format="JPEG")
 
 
 def upload_to_instagram(username, password, directory):
@@ -59,5 +59,5 @@ def main():
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

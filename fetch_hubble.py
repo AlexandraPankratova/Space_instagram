@@ -39,5 +39,5 @@ def main():
     fetch_hubble_collection_images("spacecraft", images_directory)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

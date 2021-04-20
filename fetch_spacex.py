@@ -29,5 +29,5 @@ def main():
     fetch_spacex_last_launch(images_directory)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
